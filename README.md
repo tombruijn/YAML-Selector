@@ -17,7 +17,7 @@ YAML variable selector for PHP. It support deep level selection and variable rep
 * Code:
 	
 		<?php
-		require_once("yaml_selector.php");
+		require_once("yaml_selector/yaml_selector.php");
 		$yaml = new YamlSelector("yourfile.yaml");
 
 * What to do from there is your choice! See the examples below to see how YAML Selector works!
@@ -38,7 +38,7 @@ See/run the index.php file for more information about it's usage, but in short:
 ### YAML Selector demo code
 
 	<?php
-	require_once("yaml_selector.php");
+	require_once("yaml_selector/yaml_selector.php");
 	$yaml = new YamlSelector("example_file.yaml");
 	echo $yaml->get("keyname");
 	echo $yaml->get("firstlevel.secondlevel");

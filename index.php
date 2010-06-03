@@ -148,7 +148,7 @@ echo "
 	</ol>
 	<h4>Code</h4>
 	".highlight_string("<?php\n".
-	'require_once("yaml_selector.php");'."\n".
+	'require_once("yaml_selector/yaml_selector.php");'."\n".
 	'$yaml = new YamlSelector("yourfile.yaml");',TRUE)."<br/>
 	<br/>
 	<p>What to do from there is your choice! See the examples below to see how YAML Selector works!</p>
@@ -164,7 +164,7 @@ echo "
 	<p>These variables will be avaliable to the example codes. The contents of the example file the code below loads is available to your right. See more about configuration below the examples.</p>
 	<h4>Code</h4>
 	".highlight_string("<?php\n".
-	'require_once("yaml_selector.php");'."\n".
+	'require_once("yaml_selector/yaml_selector.php");'."\n".
 	'$yaml = new YamlSelector("example_file.yaml",FALSE,TRUE);',TRUE)."
 </div>
 

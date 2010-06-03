@@ -7,7 +7,8 @@ setting:
 page:
 	-
 		title: Home
-		description: Homepage of my website.
+		description: >
+			Homepage of my website.
 		author: Me
 		date:
 			created: 2009-12-28
