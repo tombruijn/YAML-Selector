@@ -1,5 +1,4 @@
-version: 0.0.1
-date: 2010-06-03
+version: 0.0.4
 request:
 	time: 23:14
 setting:
@@ -17,5 +16,5 @@ variable:
 	one: Welcome {{name}}!
 	two: >
 		Welcome {{name}}, it's been
-		{{difference}} since you were
-		here.
+		{{difference}} since your last
+		login.

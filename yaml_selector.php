@@ -1,9 +1,10 @@
 <?php
 /*
 Yaml Selector. Simple level selection class for YAML files.
-@version 0.0.2
+@version 0.0.4
+@date 2010-06-03
 @author Tom de Bruijn <tom@newanz.com>
-@link 
+@link: http://newanz.com, http://github.com/Newanz
 @copyright Copyright 2010 Tom de Bruijn
 @license http://www.opensource.org/licenses/mit-license.php MIT License
 
@@ -12,18 +13,19 @@ Yaml Selector. Simple level selection class for YAML files.
 */
 class YamlSelector{
 	private $data = array(); #Used to store the entire selected YAML file.
-	private $setting = array("type"=>"array"); #Settings for return values.
+	private $setting = array("file"=>false,"errors"=>false,"type"=>"array"); #Settings for return values.
 	static $variables = array(); #Very rapidly changing values here.
 	/*
 	__construct
 	@param String Optional $file = Path to the YAML file you want to load.
 	@param Boolean Optional (Default: FALSE) $object = Return results as object or not? (Only usefull for selecting a level with children.)
+	@param Boolean $errors = TRUE: show errors. FALSE: no errors.
 	*/
-	function __construct($file=false,$object=false){
+	function __construct($file=false,$object=false,$errors=false){
 		require_once("spyc.php");
-		if($object==true){
-			$this->setting["type"] = "object";
-		}
+		$this->setting["file"] = $file;
+		$this->returnObject($object);
+		$this->setErrors($errors);
 		if(!empty($file)){
 			$this->loadFile($file);
 		}
@@ -34,7 +36,46 @@ class YamlSelector{
 	@param String $file = Path to the YAML file you want to load.
 	*/
 	function loadFile($file){
+		$this->setting["file"] = $file;
 		$this->data = Spyc::YAMLLoad($file);
+	}
+	/*
+	setErrors
+	Set errors on or off for this class.
+	@param Boolean $mode = TRUE: show errors. FALSE: no errors.
+	*/
+	function setErrors($mode=true){
+		if($mode===true || $mode===false){
+			$this->setting["errors"] = $mode;
+		}
+	}
+	/*
+	returnObject
+	@param Boolean $mode = TRUE: show errors. FALSE: no errors.
+	*/
+	function returnObject($mode=true){
+		$this->setting["type"] = "array";
+		if($mode===true){
+			$this->setting["type"] = "object";
+		}
+	}
+	/*
+	convertToObject
+	Private method
+	@param Array $array = The array you want to convert
+	*/
+	private function convertToObject($array){
+		$obj = new stdClass();
+		if(is_array($array)){
+			foreach($array as $k=>$v){
+				if(is_array($v)){
+					$obj->$k = $this->convertToObject($v);
+				}else{
+					$obj->$k = $v;
+				}
+			}
+		}
+		return $obj;
 	}
 	/*
 	get
@@ -51,14 +92,11 @@ class YamlSelector{
 		$var = $this->data;
 		foreach($keys as $key){
 			if($var){
-				$v = $this->returnValue($var,$key);
-				$var = $v;
-			}else{
-				echo "Error: No key found at this level.";
+				$var = $this->returnValue($var,$key);
 			}
 		}
 		if($this->setting["type"]=="object"){
-			$var = (object)$var;
+			$var = $this->convertToObject($var);
 		}
 		if(is_string($var) && !empty($variables)){
 			$var = $this->parseVariables($var,$variables);
@@ -74,9 +112,12 @@ class YamlSelector{
 	@return: mixed; String, Array or Boolean (FALSE).
 	*/
 	private function returnValue($var,$key){
-		if(array_key_exists($key,$var)){
+		if(@array_key_exists($key,$var)){
 			return $var[$key];
 		}else{
+			if($this->setting["errors"]){
+				echo "<strong>Error:</strong> No key, <strong>".$key."</strong>, found at this level in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
+			}
 			return false;
 		}
 	}
@@ -91,7 +132,9 @@ class YamlSelector{
 	private function parseVariables($var,$variables){
 		self::$variables = $variables; //Egh...
 		return preg_replace_callback("#{{(.*?)}}#is",
-			create_function('$string','return is_array(YamlSelector::$variables) ? YamlSelector::$variables[$string[1]] : YamlSelector::$variables; ')
+			function($s){
+				return is_array(YamlSelector::$variables) ? (array_key_exists($s[1],YamlSelector::$variables) ? YamlSelector::$variables[$s[1]] : $s[0]) : YamlSelector::$variables; 
+			}
 		,$var);
 	}
 }

@@ -1,10 +1,14 @@
 yaml:
 	selector:
 		name: YAML Selector
+		version: 0.0.4
+		date:
+			created: 2010-06-03
+			updated: 2010-06-03
 		author: Tom de Bruijn
 		company: Newanz - <a href='http://newanz.com' target='_blank'>http://newanz.com</a>
 		copyright: Copyright 2010 Tom de Bruijn.
-		git: <a href='http://newanz.com' target='_blank'>Github project</a>
+		git: <a href='http://github.com/Newanz' target='_blank'>Github project</a>
 		description: Use PHP to select a deep nested strings in a YAML file. It also supports variable replacements.
 	library:
 		name: Spyc
