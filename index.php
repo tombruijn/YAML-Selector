@@ -5,7 +5,7 @@
 	<title>YAML Selector examples</title>
 	<style type='text/css'>
 		body{
-			margin: 10px;
+			margin: 10px 25px 10px 25px;
 			font-family: Arial, Verdana;
 			font-size: 90%;
 			background-color: #eee;
@@ -41,7 +41,7 @@
 			color: #323232;
 		}
 		.content{
-			margin-right: 350px;
+			margin-right: 370px;
 			min-width: 500px;
 		}
 		.block{
@@ -56,7 +56,7 @@
 		.side{
 			position: fixed;
 			top: 10px;
-			right: 10px;
+			right: 25px;
 			float: right;
 			width: 330px;
 		}
