@@ -9,7 +9,7 @@ yaml:
 	selector:
 		name: YAML Selector
 		3rd party library: Spyc
-		description: Use PHP to select a deep nested string in a YAML file.
+		description: Use PHP to select a deep nested strings in a YAML file. It also supports variable replacements.
 		example:
 			-
 				name: First level selecting
@@ -50,3 +50,15 @@ yaml:
 
 							)
 					)
+			-
+				name: Inserting a variable
+				code: |
+					$yaml = new YamlSelector('example_file.yaml');
+					echo $yaml->get('variable.one',array('name'=>'Tom'));
+				result: Welcome Tom!
+			-
+				name: Inserting multiple variables
+				code: |
+					$yaml = new YamlSelector('example_file.yaml');
+					echo $yaml->get('variable.two',array('name'=>'Tom','difference'=>'three days'));
+				result: Welcome Tom, it's been three days since you were here.

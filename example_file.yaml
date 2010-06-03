@@ -5,10 +5,6 @@ request:
 setting:
 	date:
 		format: Y-m-d
-user:
-	- "John what's his name"
-	- That other guy
-	- The owner
 page:
 	-
 		title: Home
@@ -17,3 +13,9 @@ page:
 		date:
 			created: 2009-12-28
 			updated: 2010-06-03
+variable:
+	one: Welcome {{name}}!
+	two: >
+		Welcome {{name}}, it's been
+		{{difference}} since you were
+		here.
