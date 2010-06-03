@@ -1,0 +1,52 @@
+yaml:
+	library:
+		name: Spyc
+		author:
+			vlad andersen:
+				email: vlad.andersen@gmail.com
+			chris wanstrath:
+				email: chris@ozmm.org
+	selector:
+		name: YAML Selector
+		3rd party library: Spyc
+		description: Use PHP to select a deep nested string in a YAML file.
+		example:
+			-
+				name: First level selecting
+				code: |
+					$yaml = new YamlSelector('example_file.yaml');
+					echo $yaml->get('version');
+				result: "0.0.1"
+			-
+				name: Second level selecting
+				code: |
+					$yaml = new YamlSelector('example_file.yaml');
+					echo $yaml->get('request.time');
+				result: "23:14"
+			-
+				name: Third level selecting
+				code: |
+					$yaml = new YamlSelector('example_file.yaml');
+					echo $yaml->get('setting.date.format');
+				result: Y-m-d
+			-
+				name: Array selecting
+				code: |
+					$yaml = new YamlSelector('example_file.yaml');
+					print_r($yaml->get('page'));
+				result: |
+					Array
+					(
+						[0] => Array
+							(
+								[title] => Home
+								[description] => Homepage of my website.
+								[author] => Me
+								[date] => Array
+									(
+										[created] => 2009-12-28
+										[updated] => 2010-06-03
+									)
+
+							)
+					)

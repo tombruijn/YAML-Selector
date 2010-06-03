@@ -1,0 +1,19 @@
+version: 0.0.1
+date: 2010-06-03
+request:
+	time: 23:14
+setting:
+	date:
+		format: Y-m-d
+user:
+	- "John what's his name"
+	- That other guy
+	- The owner
+page:
+	-
+		title: Home
+		description: Homepage of my website.
+		author: Me
+		date:
+			created: 2009-12-28
+			updated: 2010-06-03
