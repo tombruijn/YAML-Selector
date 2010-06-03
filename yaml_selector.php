@@ -13,7 +13,7 @@ Yaml Selector. Simple level selection class for YAML files.
 */
 class YamlSelector{
 	private $data = array(); #Used to store the entire selected YAML file.
-	private $setting = array("file"=>false,"errors"=>false,"type"=>"array"); #Settings for return values.
+	private $setting = array("file"=>FALSE,"errors"=>FALSE,"type"=>"array"); #Settings for return values.
 	static $variables = array(); #Very rapidly changing values here.
 	/*
 	__construct
@@ -21,7 +21,7 @@ class YamlSelector{
 	@param Boolean Optional (Default: FALSE) $object = Return results as object or not? (Only usefull for selecting a level with children.)
 	@param Boolean $errors = TRUE: show errors. FALSE: no errors.
 	*/
-	function __construct($file=false,$object=false,$errors=false){
+	function __construct($file=FALSE,$object=FALSE,$errors=FALSE){
 		require_once("spyc.php");
 		$this->setting["file"] = $file;
 		$this->returnObject($object);
@@ -44,8 +44,8 @@ class YamlSelector{
 	Set errors on or off for this class.
 	@param Boolean $mode = TRUE: show errors. FALSE: no errors.
 	*/
-	function setErrors($mode=true){
-		if($mode===true || $mode===false){
+	function setErrors($mode=TRUE){
+		if($mode===TRUE || $mode===FALSE){
 			$this->setting["errors"] = $mode;
 		}
 	}
@@ -53,9 +53,9 @@ class YamlSelector{
 	returnObject
 	@param Boolean $mode = TRUE: show errors. FALSE: no errors.
 	*/
-	function returnObject($mode=true){
+	function returnObject($mode=TRUE){
 		$this->setting["type"] = "array";
-		if($mode===true){
+		if($mode===TRUE){
 			$this->setting["type"] = "object";
 		}
 	}
@@ -87,7 +87,7 @@ class YamlSelector{
 	@param Array $variables = Keys are name of the variables in the YAML variable. Array values are what they will be replaces with.
 	@return mixed; String/Array, depending on the selection level.
 	*/
-	function get($selector,$variables=false){
+	function get($selector,$variables=FALSE){
 		$keys = explode(".",$selector);
 		$var = $this->data;
 		foreach($keys as $key){
@@ -118,7 +118,7 @@ class YamlSelector{
 			if($this->setting["errors"]){
 				echo "<strong>Error:</strong> No key, <strong>".$key."</strong>, found at this level in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
 			}
-			return false;
+			return FALSE;
 		}
 	}
 	/*
