@@ -4,7 +4,7 @@ Yaml Selector. Simple level selection class for YAML files.
 @version 0.0.4
 @date 2010-06-03
 @author Tom de Bruijn <tom@newanz.com>
-@link: http://newanz.com, http://github.com/Newanz
+@link: http://newanz.com, http://github.com/Newanz/YAML-Selector
 @copyright Copyright 2010 Tom de Bruijn
 @license http://www.opensource.org/licenses/mit-license.php MIT License
 

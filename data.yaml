@@ -8,7 +8,7 @@ yaml:
 		author: Tom de Bruijn (tom@newanz.com)
 		company: Newanz - <a href='http://newanz.com' target='_blank'>http://newanz.com</a>
 		copyright: Copyright 2010 Tom de Bruijn.
-		git: <a href='http://github.com/Newanz' target='_blank'>Github project</a>
+		git: <a href='http://github.com/Newanz/YAML-Selector' target='_blank'>Github project</a>
 		description: Use PHP to select a deep nested strings in a YAML file. It also supports variable replacements.
 	library:
 		name: Spyc
