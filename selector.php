@@ -46,12 +46,16 @@ class YamlSelector{
 	@param Array $variables = Keys are name of the variables in the YAML variable. Array values are what they will be replaces with.
 	@return mixed; String/Array, depending on the selection level.
 	*/
-	function get($selector,$variables=array()){
+	function get($selector,$variables=false){
 		$keys = explode(".",$selector);
 		$var = $this->data;
 		foreach($keys as $key){
-			$v = $this->returnValue($var,$key);
-			$var = $v;
+			if($var){
+				$v = $this->returnValue($var,$key);
+				$var = $v;
+			}else{
+				echo "Error: No key found at this level.";
+			}
 		}
 		if($this->setting["type"]=="object"){
 			$var = (object)$var;
@@ -87,7 +91,7 @@ class YamlSelector{
 	private function parseVariables($var,$variables){
 		self::$variables = $variables; //Egh...
 		return preg_replace_callback("#{{(.*?)}}#is",
-			create_function('$string','return YamlSelector::$variables[$string[1]];')
+			create_function('$string','return is_array(YamlSelector::$variables) ? YamlSelector::$variables[$string[1]] : YamlSelector::$variables; ')
 		,$var);
 	}
 }

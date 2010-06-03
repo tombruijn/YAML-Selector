@@ -10,9 +10,10 @@ echo "<!DOCTYPE html>
 			margin: 10px;
 			font-family: Arial, Verdana;
 			font-size: 90%;
+			background-color: #eee;
 		}
 		p,pre{
-			margin: 0px;
+			margin: 0 0 5px 0;
 		}
 		
 		h1,h2,h3,h4{
@@ -38,23 +39,31 @@ echo "<!DOCTYPE html>
 			color: #323232;
 		}
 		.content{
-			margin-right: 360px;
+			margin-right: 350px;
 			min-width: 500px;
-			background-color: #FFF;
 		}
-		.example_file{
+		.block{
+			margin-bottom: 10px;
+			padding: 10px;
+			background-color: #FFF;
+			border: 1px solid #CCC;
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+		}
+		.side{
 			position: fixed;
 			top: 10px;
 			right: 10px;
 			float: right;
 			width: 330px;
-			padding: 10px;
-			background-color: #FFF;
-			border: 1px solid #CCC;
 		}
 		.example{
+			margin-left: 20px;
+			margin-right: 20px;
 			margin-bottom: 10px;
 			padding: 10px 10px 10px 10px;
+			background-color: #FFF;
 			border: 1px solid #CCC;
 			border-radius: 10px;
 			-moz-border-radius: 10px;
@@ -67,32 +76,104 @@ echo "<!DOCTYPE html>
 	</style>
 </head>
 <body>";
-$yaml = new YamlSelector("data.yaml");
-echo "<div class='example_file'>
-	<h2>Example file</h2>
-	".highlight_file("example_file.yaml",true)."
+$i = new YamlSelector("data.yaml");
+$yaml = new YamlSelector("example_file.yaml");
+echo "
+<div class='side'>
+	<div class='block'>
+		<h2>Example file</h2>
+		".highlight_file("example_file.yaml",true)."
+	</div>
+	<div class='block'>
+		<h2>3rd party library</h2>
+		<h3>".$i->get("yaml.library.name")."</h3>
+		<p>".$i->get("yaml.library.description")."</p>
+		<p>Spyc authors:<ul>";
+		$authors = $i->get("yaml.library.author");
+		foreach($authors as $k=>$v){
+			echo "<li>".$k." (".$v["email"].")</li>";
+		}
+		echo "</ul></p>
+		<p>Link: ".$i->get("yaml.library.link")."</p>
+	</div>
 </div>
+
 <div class='content'>
-<h1>".$yaml->get("yaml.selector.name")."</h1>
-<p>".$yaml->get("yaml.selector.description")."</p>
-<h2>Usage</h2>";
-$examples = $yaml->get("yaml.selector.example");
-foreach($examples as $example){
-	echo "<div class='example'><h3>".$example["name"]."</h3>";
-	echo "<h4>Code</h4>";
-	highlight_string("<?php\n".$example["code"]);
-	echo "<h4>Result</h4>";
-	echo "<p>".$example["result"]."</p></div>";
-}
-$e = new YamlSelector("example_file.yaml");
-echo "<h2>3rd party library</h2>";
-echo "<h3>".$yaml->get("yaml.library.name")."</h3>";
-echo "<p>Spyc authors:<ul>";
-$authors = $yaml->get("yaml.library.author");
-foreach($authors as $k=>$v){
-	echo "<li>".$k." (".$v["email"].")</li>";
-}
-echo "</ul></p>
+<div class='block'>
+	<h1>".$i->get("yaml.selector.name")."</h1>
+	<p>".$i->get("yaml.selector.description")."</p>
+	<h2>Details</h2>
+	<p>Author: ".$i->get("yaml.selector.author")." - ".$i->get("yaml.selector.company")."</p>
+	<p>Copyright: ".$i->get("yaml.selector.copyright")."</p>
+	<p>Github: ".$i->get("yaml.selector.git")."</p>
+</div>
+<div class='block'>
+	<h2>Usage examples</h2>
+</div>
+
+<div class='example'>
+	<h3>Example inviroment</h3>
+	<p>These variables will be avaliable to the example codes.</p>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'$yaml = new YamlSelector("example_file.yaml");',true)."
+</div>
+
+<div class='example'>
+	<h3>First level selection</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'echo $yaml->get("version");',true)."
+	<h4>Result</h4>
+	".$yaml->get("version")."
+</div>
+
+<div class='example'>
+	<h3>Second level selection</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'echo $yaml->get("request.time");',true)."
+	<h4>Result</h4>
+	".$yaml->get("request.time")."
+</div>
+
+<div class='example'>
+	<h3>Third level selection</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'echo $yaml->get("setting.date.format");',true)."
+	<h4>Result</h4>
+	".$yaml->get("setting.date.format")."
+</div>
+
+<div class='example'>
+	<h3>Array selection</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'print_r($yaml->get("page"));',true)."
+	<h4>Result</h4><pre>";
+	print_r($yaml->get("page"));
+echo "</pre></div>
+
+<div class='example'>
+	<h3>Single variable insertion - method one</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'echo $yaml->get("variable.one","Tom");',true)."
+	<h4>Result</h4>";
+	echo $yaml->get("variable.one","Tom");
+echo "</div>
+
+<div class='example'>
+	<h3>Single variable insertion - method two</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'echo $yaml->get("variable.one",array("name"=>"Tom"));',true)."
+	<h4>Result</h4>";
+	echo $yaml->get("variable.one",array("name"=>"Tom"));
+echo "</div>
+
+<div class='example'>
+	<h3>Multiple variable insertion</h3>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".'echo $yaml->get("variable.two",array("name"=>"Tom","difference"=>"three days"));',true)."
+	<h4>Result</h4>";
+	echo $yaml->get("variable.two",array("name"=>"Tom","difference"=>"three days"));
+echo "</div>
+
 </div>
 </body>
 </html>";
