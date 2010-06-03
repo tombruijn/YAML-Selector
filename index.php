@@ -80,7 +80,7 @@
 </head>
 <body>
 <?php
-require_once("yaml_selector.php");
+require_once("yaml_selector/yaml_selector.php");
 $i = new YamlSelector("data.yaml");
 $yaml = new YamlSelector("example_file.yaml",FALSE,TRUE);
 echo "
@@ -88,6 +88,7 @@ echo "
 	<div class='block'>
 		<h2>Contents</h2>
 		<ul>
+			<li><a href='#installation'>Installation</a></li>
 			<li><a href='#environment'>Example environment</a></li>
 			<li><a href='#examples'>Examples</a>
 				<ul>
@@ -138,17 +139,33 @@ echo "
 </div>
 
 <div class='block'>
+	<h2><a id='installation'>Installation</a></h2>
+	<ol>
+		<li>Download/Unpack the YAML-Selector project.</li>
+		<li>Move the \"yaml_selector\" directory to your project.</li>
+		<li>Prepare a YAML file.</li>
+		<li>In your PHP project use the following code:</li>
+	</ol>
+	<h4>Code</h4>
+	".highlight_string("<?php\n".
+	'require_once("yaml_selector.php");'."\n".
+	'$yaml = new YamlSelector("yourfile.yaml");',TRUE)."<br/>
+	<br/>
+	<p>What to do from there is your choice! See the examples below to see how YAML Selector works!</p>
+</div>
+
+<div class='block'>
+	<h2><a id='examples'>Usage examples</a></h2>
+	<p>See what functions are available in the YAML Selector class and what they return.</p>
+</div>
+
+<div class='block'>
 	<h3><a id='environment'>Example environment</a></h3>
 	<p>These variables will be avaliable to the example codes. The contents of the example file the code below loads is available to your right. See more about configuration below the examples.</p>
 	<h4>Code</h4>
 	".highlight_string("<?php\n".
 	'require_once("yaml_selector.php");'."\n".
 	'$yaml = new YamlSelector("example_file.yaml",FALSE,TRUE);',TRUE)."
-</div>
-
-<div class='block'>
-	<h2><a id='examples'>Usage examples</a></h2>
-	<p>See what functions are available in the YAML Selector class and what they return.</p>
 </div>
 
 <div class='example'>

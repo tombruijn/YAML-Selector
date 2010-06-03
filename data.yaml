@@ -9,7 +9,7 @@ yaml:
 		company: Newanz - <a href='http://newanz.com' target='_blank'>http://newanz.com</a>
 		copyright: Copyright 2010 Tom de Bruijn.
 		git: <a href='http://github.com/Newanz/YAML-Selector' target='_blank'>Github project</a>
-		description: Use PHP to select a deep nested strings in a YAML file. It also supports variable replacements.
+		description: YAML variable selector for PHP. It support deep level selection and variable replacements.
 	library:
 		name: Spyc
 		description: "a Simple PHP YAML Class" I'm using this PHP class to load the YAML files into a PHP array.
