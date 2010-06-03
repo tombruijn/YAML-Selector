@@ -1,7 +1,7 @@
 <?php
 /*
 Yaml Selector. Simple level selection class for YAML files.
-@version 0.0.4
+@version 0.0.5
 @date 2010-06-03
 @author Tom de Bruijn <tom@newanz.com>
 @link: http://newanz.com, http://github.com/Newanz/YAML-Selector
@@ -45,7 +45,7 @@ class YamlSelector{
 	@param Boolean $mode = TRUE: show errors. FALSE: no errors.
 	*/
 	function setErrors($mode=TRUE){
-		if($mode===TRUE || $mode===FALSE){
+		if(is_bool($mode)){
 			$this->setting["errors"] = $mode;
 		}
 	}
@@ -98,7 +98,7 @@ class YamlSelector{
 		if($this->setting["type"]=="object"){
 			$var = $this->convertToObject($var);
 		}
-		if(is_string($var) && !empty($variables)){
+		if(is_string($var) && isset($variables)){
 			$var = $this->parseVariables($var,$variables);
 		}
 		return $var;
@@ -123,7 +123,7 @@ class YamlSelector{
 	}
 	/*
 	parseVariables
-	
+	Replaces variable names ( {{name}} ) with the given replacement values.
 	Private method
 	@param Array $var = Array with variables.
 	@param String $key = Key in the array.

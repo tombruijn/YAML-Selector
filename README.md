@@ -2,6 +2,12 @@
 
 YAML variable selector for PHP. It support deep level selection and variable replacements.
 
+## Project details
+
+* Author: Tom de Bruijn - Newanz.com (<http://newanz.com>)
+* Version: 0.0.5
+* Last update: 2010-06-03
+
 ## Installation
 
 * Download/Unpack the YAML-Selector project.
