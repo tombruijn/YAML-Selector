@@ -5,8 +5,8 @@ YAML variable selector for PHP. It support deep level selection and variable rep
 ## Project details
 
 * Author: Tom de Bruijn - Newanz.com (<http://newanz.com>)
-* Version: 0.0.5
-* Last update: 2010-06-03
+* Version: 0.0.6
+* Last update: 2010-06-04
 
 ## Installation
 

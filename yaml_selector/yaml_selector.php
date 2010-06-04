@@ -1,8 +1,8 @@
 <?php
 /*
 Yaml Selector. Simple level selection class for YAML files.
-@version 0.0.5
-@date 2010-06-03
+@version 0.0.6
+@date 2010-06-04
 @author Tom de Bruijn <tom@newanz.com>
 @link: http://newanz.com, http://github.com/Newanz/YAML-Selector
 @copyright Copyright 2010 Tom de Bruijn
@@ -91,8 +91,10 @@ class YamlSelector{
 		$keys = explode(".",$selector);
 		$var = $this->data;
 		foreach($keys as $key){
-			if($var){
+			if(is_array($var)){
 				$var = $this->returnValue($var,$key);
+			}else{
+				return "<strong>Error:</strong> No level, <strong>".$selector."</strong> -&gt; <strong>".$key."</strong>, found in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
 			}
 		}
 		if($this->setting["type"]=="object"){
@@ -116,7 +118,7 @@ class YamlSelector{
 			return $var[$key];
 		}else{
 			if($this->setting["errors"]){
-				echo "<strong>Error:</strong> No key, <strong>".$key."</strong>, found at this level in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
+				return "<strong>Error:</strong> No key, <strong>".$key."</strong>, found at this level in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
 			}
 			return FALSE;
 		}
