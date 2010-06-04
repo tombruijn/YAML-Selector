@@ -6,13 +6,13 @@ YAML variable selector for PHP. It support deep level selection and variable rep
 
 * Author: Tom de Bruijn - Newanz.com (<http://newanz.com>)
 * Version: 0.0.6
-* Last update: 2010-06-04
+* More details at: <http://github.com/Newanz/YAML-Selector>
 
 ## Installation
 
 * Download/Unpack the YAML-Selector project.
 * Move the "yaml_selector" directory to your project.
-* Prepare a YAML file.
+* Prepare a YAML file. Tutorial: <http://yaml.kwiki.org/?YamlInFiveMinutes>
 * In your PHP project use the following code:
 * Code:
 	
