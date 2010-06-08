@@ -1,7 +1,7 @@
 yaml:
 	selector:
 		name: YAML Selector
-		version: 0.0.7
+		version: 0.0.8
 		date:
 			created: 2010-06-03
 			updated: 2010-06-08
