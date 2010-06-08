@@ -1,8 +1,8 @@
 <?php
 /*
 Yaml Selector. Simple level selection class for YAML files.
-@version 0.0.6
-@date 2010-06-04
+@version 0.0.7
+@date 2010-06-08
 @author Tom de Bruijn <tom@newanz.com>
 @link: http://newanz.com, http://github.com/Newanz/YAML-Selector
 @copyright Copyright 2010 Tom de Bruijn
@@ -87,23 +87,27 @@ class YamlSelector{
 	@param Array $variables = Keys are name of the variables in the YAML variable. Array values are what they will be replaces with.
 	@return mixed; String/Array, depending on the selection level.
 	*/
-	function get($selector,$variables=FALSE){
-		$keys = explode(".",$selector);
-		$var = $this->data;
-		foreach($keys as $key){
-			if(is_array($var)){
-				$var = $this->returnValue($var,$key);
-			}else{
-				return "<strong>Error:</strong> No level, <strong>".$selector."</strong> -&gt; <strong>".$key."</strong>, found in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
+	function get($selector=FALSE,$variables=FALSE){
+		if(empty($selector)){
+			return $this->data;
+		}else{
+			$keys = explode(".",$selector);
+			$var = $this->data;
+			foreach($keys as $key){
+				if(is_array($var)){
+					$var = $this->returnValue($var,$key);
+				}else{
+					return "<strong>Error:</strong> No level, <strong>".$selector."</strong> -&gt; <strong>".$key."</strong>, found in YAML file <strong>".realpath($this->setting["file"])."</strong>.<br/>";
+				}
 			}
+			if($this->setting["type"]=="object"){
+				$var = $this->convertToObject($var);
+			}
+			if(is_string($var) && isset($variables)){
+				$var = $this->parseVariables($var,$variables);
+			}
+			return $var;
 		}
-		if($this->setting["type"]=="object"){
-			$var = $this->convertToObject($var);
-		}
-		if(is_string($var) && isset($variables)){
-			$var = $this->parseVariables($var,$variables);
-		}
-		return $var;
 	}
 	/*
 	returnValue
