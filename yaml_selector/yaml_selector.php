@@ -1,8 +1,8 @@
 <?php
 /*
 Yaml Selector. Simple level selection class for YAML files.
-@version 0.0.8
-@date 2010-06-08
+@version 0.0.8 (Special old PHP version)
+@date 2010-06-11
 @author Tom de Bruijn <tom@newanz.com>
 @link: http://newanz.com, http://github.com/Newanz/YAML-Selector
 @copyright Copyright 2010 Tom de Bruijn
@@ -136,10 +136,6 @@ class YamlSelector{
 	*/
 	private function parseVariables($var,$variables){
 		self::$variables = $variables; //Egh...
-		return preg_replace_callback("#{{(.*?)}}#is",
-			function($s){
-				return is_array(YamlSelector::$variables) ? (array_key_exists($s[1],YamlSelector::$variables) ? YamlSelector::$variables[$s[1]] : $s[0]) : YamlSelector::$variables; 
-			}
-		,$var);
+		return preg_replace_callback("#{{(.*?)}}#is",create_function('$s','return is_array(YamlSelector::$variables) ? (array_key_exists($s[1],YamlSelector::$variables) ? YamlSelector::$variables[$s[1]] : $s[0]) : YamlSelector::$variables;'),$var);
 	}
 }
